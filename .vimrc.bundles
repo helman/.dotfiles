@@ -1,0 +1,184 @@
+" Bundles list
+Bundle "kien/ctrlp.vim"
+Bundle 'tacahiroy/ctrlp-funky'
+
+" navigate with C-h/j/k/l in tmux and vim
+Bundle "christoomey/vim-tmux-navigator"
+
+" like sublime multiple cursors
+Bundle "terryma/vim-multiple-cursors"
+
+" Vim-airline
+if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        " Do Mac stuff here
+        Bundle "bling/vim-airline"
+        Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+        Bundle "edkolev/tmuxline.vim"
+    endif
+endif
+
+" cycle through yanks/deletes in a visual window or after pasting
+Bundle "vim-scripts/YankRing.vim"
+
+" undo tree history navigation
+Bundle "sjl/gundo.vim"
+
+" strip trailing whitespace on save
+Bundle "itspriddle/vim-stripper"
+
+" highlight code and send to pastie service
+Bundle "tpope/vim-pastie"
+
+" Proper syntax highlighting and commenting capabilities
+Bundle "tmux-plugins/vim-tmux"
+
+" easily change what something is surrounded by
+Bundle "tpope/vim-surround"
+
+" repeat surround (and other) changes with .
+Bundle "tpope/vim-repeat"
+
+" some vim runtime files that are more up to date than those distributed with vim itself
+Bundle "tpope/vim-git"
+
+" auto adds end to method definitions, blocks, etc
+Bundle "tpope/vim-endwise"
+
+" auto close delimeter
+Bundle "jiangmiao/auto-pairs"
+" Bundle "Raimondi/delimitMate"
+
+" allows for moving blocks of text up and down in place like you could in textmate
+Bundle "tpope/vim-unimpaired"
+
+" Smart selection between pairs
+Bundle "gorkunov/smartpairs.vim"
+
+" syntax checking on save
+Bundle "scrooloose/syntastic"
+
+" drawer showing ctags
+Bundle "majutsushi/tagbar"
+
+Bundle "scrooloose/nerdtree"
+Bundle "Xuyuanp/nerdtree-git-plugin"
+
+" makes NERDTree awesome if you use tabs
+Bundle "jistr/vim-nerdtree-tabs"
+
+" comment multiple lines
+Bundle "scrooloose/nerdcommenter"
+Bundle "Shougo/neocomplcache.vim"
+Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neosnippet-snippets'
+
+Bundle "mileszs/ack.vim"
+Bundle "tpope/vim-fugitive"
+Bundle "hail2u/vim-css3-syntax"
+"Bundle "evidens/vim-twig"
+Bundle 'beyondwords/vim-twig'
+Bundle "tpope/vim-haml"
+Bundle "tpope/vim-markdown"
+Bundle "elzr/vim-json"
+Bundle "pangloss/vim-javascript"
+
+" Gist things
+Bundle 'mattn/gist-vim'
+
+" dependency of gist-vim
+Bundle 'mattn/webapi-vim'
+
+" <leader><leader>w jump to highlighted word
+Bundle "Lokaltog/vim-easymotion"
+Bundle "mattn/emmet-vim"
+"Bundle "SirVer/ultisnips"
+
+" Aligment
+" Bundle "junegunn/vim-easy-align"
+Bundle "godlygeek/tabular"
+
+" show indent guides to the left of the methods
+Bundle 'nathanaelkane/vim-indent-guides'
+
+
+"------ PHP Related bundle ------
+"Bundle "StanAngeloff/php.vim"
+"Bundle "tobyS/vmustache"
+"Bundle "tobyS/pdv"
+Bundle 'spf13/PIV'
+Bundle 'arnaud-lb/vim-php-namespace'
+
+" tab completion like textmate for snippets
+Bundle 'garbas/vim-snipmate'
+
+" vim-snipmate dependency
+Bundle 'tomtom/tlib_vim'
+
+" vim-snipmate dependency
+Bundle 'MarcWeber/vim-addon-mw-utils'
+
+" vim-snipmate dependency
+Bundle 'honza/vim-snippets'
+
+if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        " Do Mac stuff here
+        Bundle 'rizzatti/funcoo.vim'
+        Bundle 'rizzatti/dash.vim'
+    endif
+endif
+
+lef g:php_var_selector_is_identifier = 1
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
+
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+nnoremap <buffer> <Leader>p :call pdv#DocumentWithSnip()<CR>
+
+"------ Inline color ------
+" Bundle "lilydjwg/colorizer"
+Bundle 'gorodinskiy/vim-coloresque'
+
+"------ Theme ------
+"Bundle "altercation/vim-colors-solarized"
+Bundle "hukl/Smyck-Color-Scheme"
+Bundle "crusoexia/vim-monokai"
+Bundle "tomasr/molokai"
+
+Bundle 'mbbill/undotree'
+
+
+Bundle 'groenewege/vim-less'
+Bundle 'mhinz/vim-signify'
+Bundle 'osyo-manga/vim-over'
+Bundle 'kana/vim-textobj-user'
+Bundle 'kana/vim-textobj-indent'
+Bundle 'reedes/vim-textobj-sentence'
+Bundle 'reedes/vim-textobj-quote'
+Bundle 'gcmt/wildfire.vim'
+Bundle 'tpope/vim-commentary'
+Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'saltstack/salt-vim'
+Bundle 'kchmck/vim-coffee-script'
+
+
+" Bundle 'reedes/vim-wordy'
+" Bundle 'MarcWeber/vim-addon-mw-utils'
+" Bundle 'tomtom/tlib_vim'
+" Bundle 'kristijanhusak/vim-multiple-cursors'
+" Bundle 'vim-scripts/sessionman.vim'
+" Bundle 'matchit.zip'
+Bundle 'bling/vim-bufferline'
+" Bundle 'tpope/vim-abolish.git'
+" Bundle 'reedes/vim-litecorrect'
+" Bundle 'rust-lang/rust.vim'
