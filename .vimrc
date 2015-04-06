@@ -1,3 +1,5 @@
+set clipboard=unnamed
+
 let mapleader=","
 
 " Turn off vi compatibility. If I wanted vi, I would use vi.
@@ -88,7 +90,7 @@ set smartindent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 
 "------ Swap file directory ------
-set dir=~/.swap_dir
+set dir=~/.vim_swap
 
 "------ Buffer Switcher ------
 map <silent> <Leader>bn :bn<CR>
@@ -108,10 +110,10 @@ map <F7> <Esc>:DisablePHPFolds<Cr>
 
 "------  Window Navigation  ------
 " ,hljk = Move between windows
-" nnoremap <Leader>h <C-w>h
-" nnoremap <Leader>l <C-w>l
-" nnoremap <Leader>j <C-w>j
-" nnoremap <Leader>k <C-w>k
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>l <C-w>l
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
 
 " Gist stuff for mattn/gist-vim
 let g:gist_clip_command = 'pbcopy'
