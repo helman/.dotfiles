@@ -62,16 +62,22 @@ call vundle#end()
 
 "----- Theme ------
 syntax enable
-"let g:solarized_termcolors=256
 set background=dark
-"colorscheme solarized
-" colorscheme smyck
 let g:monokai_thick_border = 1
 let g:monokai_zentree = 1
 let g:monokai_italic = 1
 colorscheme monokai
-" let g:rehash256 = 1
-" colorscheme molokai
+" Override monokai color
+" Change bg to
+if has('gui_running')
+    highlight Normal ctermbg=#000000
+    highlight StatusLine ctermbg=#000000
+    highlight PmenuSbar ctermbg=#000000
+else
+    highlight Normal ctermbg=000
+    highlight StatusLine ctermbg=000
+    highlight PmenuSbar ctermbg=000
+endif
 
 "------ Highlight search keywords ------
 set hlsearch
@@ -181,6 +187,16 @@ nnoremap <Leader>gp :Ggrep
 nnoremap <Leader>gR :Gread<CR>
 nnoremap <Leader>gg :Git
 nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gp :Gpush
+
+" Indent guide
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+
+"------ CtrlP funky - Function -------
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 "------  Text Editing Utilities  ------
 " ,T = Delete all Trailing space in file
