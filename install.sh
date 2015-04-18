@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 TIMESTAMP=$(date +%s)
 APP_DIR="$HOME/.dotfiles"
 
@@ -10,6 +11,9 @@ VIMRC="$HOME/.vimrc"
 VIMRB_BUNDLE="$HOME/.vimrc.bundles"
 TMUX="$HOME/.tmux.conf"
 ZSHRC="$HOME/.zshrc"
+
+echo "Install vundle"
+git clone https://github.com/gmarik/Vundle.vim.git "$VIM/bundles/Vundle.vim.git/"
 
 if [ -d "$VIM" ]
     then
@@ -62,3 +66,8 @@ ln -s "$APP_DIR/.zshrc" "$ZSHRC"
 ln -s "$APP_DIR/.vimrc" "$VIMRC"
 
 ln -s "$APP_DIR/.vimrc.bundles" "$VIMRB_BUNDLE"
+
+echo "\n"
+echo "type ':BundleInstall' in Vim"
+read "Press any key to continue..."
+vim
