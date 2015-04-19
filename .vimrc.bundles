@@ -70,7 +70,8 @@ Bundle "jistr/vim-nerdtree-tabs"
 
 " comment multiple lines
 Bundle "scrooloose/nerdcommenter"
-Bundle "Shougo/neocomplcache.vim"
+
+Bundle "Shougo/neocomplete.vim"
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'
 
@@ -93,7 +94,6 @@ Bundle 'mattn/webapi-vim'
 " <leader><leader>w jump to highlighted word
 Bundle "Lokaltog/vim-easymotion"
 Bundle "mattn/emmet-vim"
-"Bundle "SirVer/ultisnips"
 
 " Aligment
 " Bundle "junegunn/vim-easy-align"
@@ -110,16 +110,18 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'spf13/PIV'
 Bundle 'arnaud-lb/vim-php-namespace'
 
-" tab completion like textmate for snippets
-Bundle 'garbas/vim-snipmate'
+" " tab completion like textmate for snippets
+"Bundle "SirVer/ultisnips"
+" Bundle 'garbas/vim-snipmate'
+" Bundle "sirver/ultisnips"
 
-" vim-snipmate dependency
-Bundle 'tomtom/tlib_vim'
+" " vim-snipmate dependency
+" Bundle 'tomtom/tlib_vim'
 
-" vim-snipmate dependency
-Bundle 'MarcWeber/vim-addon-mw-utils'
+" " vim-snipmate dependency
+" Bundle 'MarcWeber/vim-addon-mw-utils'
 
-" vim-snipmate dependency
+" " vim-snipmate dependency
 Bundle 'honza/vim-snippets'
 
 if has("unix")
