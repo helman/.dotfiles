@@ -418,12 +418,12 @@ let g:neocomplete#sources#omni#input_patterns.go = '\h\w*\.\?'
     xmap <TAB>     <Plug>(neosnippet_expand_target)
 
     " SuperTab like snippets behavior.
-    imap <expr><CR> neosnippet#expandable_or_jumpable() ?
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
     \ "\<Plug>(neosnippet_expand_or_jump)"
-    \: pumvisible() ? "\<C-n>" : "\<CR>"
-    smap <expr><CR> neosnippet#expandable_or_jumpable() ?
+    \: pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
     \ "\<Plug>(neosnippet_expand_or_jump)"
-    \: "\<CR>"
+    \: "\<TAB>"
 
     " For snippet_complete marker.
     if has('conceal')
