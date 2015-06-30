@@ -20,7 +20,7 @@ if has("unix")
 endif
 
 " cycle through yanks/deletes in a visual window or after pasting
-Bundle "vim-scripts/YankRing.vim"
+" Bundle "vim-scripts/YankRing.vim"
 
 " undo tree history navigation
 Bundle "sjl/gundo.vim"

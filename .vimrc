@@ -15,14 +15,22 @@ else
     filetype plugin on
 endif
 
+" eliminating esc key delay
+set timeoutlen=1000 ttimeoutlen=0
+
 set guifont=Inconsolata\ for\ Powerline:h15
 let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
-set t_Co=256
+set t_Co=256                    " Terminal color
+
+" support italic font
+set t_ZH=[3m
+set t_ZH=[23m
+
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 
-set number
+set number                      " Show numbers
 set showmode                    " shows the current mode
 set backspace=indent,eol,start  " backspaces behave like backspaces
 set hidden                      " good multi-file behaviors
@@ -45,7 +53,9 @@ set ttyfast
 
 " Enable mouse use in all modes
 set mouse=a
-set ttymouse=xterm2
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 
 "------ Vundle ------
 " set the runtime path to include Vundle and initialize
@@ -67,8 +77,11 @@ let g:monokai_thick_border = 1
 let g:monokai_zentree = 1
 let g:monokai_italic = 1
 colorscheme monokai
+" let g:molokai_original = 1
+" colorscheme molokai
 " Override monokai color
 " Change bg to
+
 if has('gui_running')
     highlight Normal ctermbg=#000000
     highlight StatusLine ctermbg=#000000
@@ -79,11 +92,23 @@ else
     highlight PmenuSbar ctermbg=000
 endif
 
+"------ Highlight cursor position ------
+hi cursorcolumn   ctermbg=235
+hi CursorLine     cterm=none ctermbg=235
+" hi LineNr         ctermbg=23 ctermfg=73
+" hi Normal ctermbg=none
+" hi TabLineSel ctermfg=white ctermbg=52
+" hi TabLine ctermfg=white ctermbg=darkblue
+" hi TabLineFill ctermfg=darkblue
+set cursorline
+set cursorcolumn
+
 "------ Highlight search keywords ------
 set hlsearch
 set incsearch
 set ignorecase  "case-insensitive searching
 set smartcase "unless there's a capital letter there
+nnoremap <C-s> :set hlsearch!<CR>
 
 "------ Replace tab with 4 spaces ------
 set expandtab                   " Tabs are spaces, not tabs
@@ -101,9 +126,6 @@ set dir=~/.vim_swap
 map <silent> <Leader>bn :bn<CR>
 map <silent> <Leader>bp :bp<CR>
 map <silent> <Leader>bd :bd<CR>
-
-"------ NERDTree ------
-let NERDTreeShowHidden=1
 
 "------ Set F1-F12 shortcut keys ------
 map <silent> <F2> :TagbarToggle<CR>
@@ -127,14 +149,18 @@ let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 
 
+"------ NERDTree ------
+let NERDTreeShowHidden=1
+
 " Open NERDTree with [<leader>d]
-map <Leader>d :NERDTreeTabsToggle<CR>
+" map <Leader>d :NERDTreeTabsToggle<CR>
+map <Leader>d :NERDTreeToggle<CR>
 " Show current file in the NERDTree hierarchy
 map <Leader>D :NERDTreeFind<CR>
 let NERDTreeMinimalUI=1
 let NERDTreeDirArrows=1
 let NERDTreeWinSize = 51
-let NERDTreeShowLineNumbers=1
+" let NERDTreeShowLineNumbers=1
 let g:nerdtree_tabs_focus_on_files=1
 "let g:nerdtree_tabs_open_on_console_startup=1
 
@@ -192,6 +218,21 @@ nnoremap <Leader>gp :Gpush
 " Indent guide
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
+
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_working_path_mode = 'ra'
+
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+" set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"   \ 'file': '\v\.(exe|so|dll)$',
+"   \ 'link': 'some_bad_symbolic_links',
+"   \ }
+
 
 "------ CtrlP funky - Function -------
 nnoremap <Leader>fu :CtrlPFunky<Cr>
