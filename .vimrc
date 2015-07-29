@@ -38,12 +38,20 @@ set wildmenu                    " better command line completion
 set wildmode=list:longest,full  " completion acts like the shell
 set showmatch                   " Show matching brackets/parenthesis
 set ruler                       " show cursor position in the corner
-set foldenable                  " Auto fold code
+" set foldenable                  " Auto fold code
 set backupdir =~/.vim_backup
-set wrap                        " linewraps
 set scrolloff=5                 " always show 5 lines before/after the cursor
 set title                       " update term title
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+
+
+" ----- Word wrap without line breaks -----
+set wrap                        " linewraps
+set linebreak                   " Line wrap at a character in the breakat ' ^I!@*-+;:,./?' where ^I => Tab
+set nolist                      " list disabled linebreak
+" set textwidth=0
+set wrapmargin=0
+set formatoptions-=t
 
 set laststatus=2                " Always show a status line at the bottom
 "set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
@@ -119,6 +127,8 @@ set autoindent
 set smartindent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 
+set tags=./tags
+
 "------ Swap file directory ------
 set dir=~/.vim_swap
 
@@ -131,9 +141,9 @@ map <silent> <Leader>bd :bd<CR>
 map <silent> <F2> :TagbarToggle<CR>
 map <F3> oecho "<pre>";print_r($);exit;<Esc>F$a
 map <silent> <F4> :TlistToggle<CR>
-map <F5> <Esc>:EnableFastPHPFolds<Cr>
-map <F6> <Esc>:EnablePHPFolds<Cr>
-map <F7> <Esc>:DisablePHPFolds<Cr>
+" map <F5> <Esc>:EnableFastPHPFolds<Cr>
+" map <F6> <Esc>:EnablePHPFolds<Cr>
+" map <F7> <Esc>:DisablePHPFolds<Cr>
 
 "------  Window Navigation  ------
 " ,hljk = Move between windows
@@ -143,10 +153,10 @@ nnoremap <Leader>j <C-w>j
 nnoremap <Leader>k <C-w>k
 
 " Gist stuff for mattn/gist-vim
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_post_private = 1
+" let g:gist_clip_command = 'pbcopy'
+" let g:gist_detect_filetype = 1
+" let g:gist_open_browser_after_post = 1
+" let g:gist_post_private = 1
 
 
 "------ NERDTree ------
@@ -173,7 +183,6 @@ endif
 
 "resizes nerdtree if you're cursor is not actually in nerdtree (needs to be to the right of it)
 map <leader>5 99+ 51_ j k
-
 
 " For nerdcommenter, add one space after comment char
 let NERDSpaceDelims=1
@@ -223,16 +232,17 @@ let g:indent_guides_guide_size=1
 let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_working_path_mode = 'ra'
 
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 " set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+set wildignore+=*.o,*.obj,.git,*.pyc,*.so,blaze*,READONLY,llvm,Library*
+set wildignore+=CMakeFiles,packages/*,**/packages/*,**/node_modules/*
 
-" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"   \ 'file': '\v\.(exe|so|dll)$',
-"   \ 'link': 'some_bad_symbolic_links',
-"   \ }
-
+" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|DS_Store)$'
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|DS_Store)$|node_modules$',
+    \ 'file': '\v\.(exe|so|dll|swp|ico|jpg|png|gif|ico)$',
+    \ 'link': 'some_bad_symbolic_links',
+    \ }
 
 "------ CtrlP funky - Function -------
 nnoremap <Leader>fu :CtrlPFunky<Cr>
@@ -274,23 +284,8 @@ if has("unix")
         let g:airline_symbols.linenr = ''
 
         " tmuxline
-        let g:tmuxline_poweline_separators = 1
+        let g:tmuxline_powerline_separators = 1
 
-    endif
-endif
-
-" Dash Doc triggering
-if has("unix")
-    let s:uname = system("uname")
-    if s:uname == "Darwin\n"
-        " Do Mac stuff here
-        " Dash
-        "let g:dash_map = {
-        "  \ 'ruby'       : 'rails'
-        "  \ }
-        au BufNewFile,BufRead *.rb :DashKeywords rails ruby<cr>
-        nmap <silent> <LocalLeader>d <Plug>DashSearch
-        nmap <silent> <LocalLeader>D <Plug>DashGlobalSearch
     endif
 endif
 
@@ -342,7 +337,6 @@ endfunc
 " autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
 
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -352,141 +346,6 @@ autocmd FileType haskell setlocal commentstring=--\ %s
 " Workaround broken colour highlighting in Haskell
 autocmd FileType haskell,rust setlocal nospell
 
-
-"------ NEOCOMPLETE ------
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-imap <expr> <CR> CleverCr()
-function! s:CleverCr()
-  if pumvisible()
-      if neosnippet#expandable()
-          let exp = "\<Plug>(neosnippet_expand)"
-          return exp . neocomplete#close_popup()
-      else
-          return neocomplete#close_popup()
-      endif
-  else
-      return "\<CR>"
-  endif
-  " return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  " return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-let g:neocomplete#enable_auto_select = 1
-" let g:neocomplete#disable_auto_complete = 1
-inoremap <expr><C-j>  pumvisible() ? "\<Down>" : "\<C-j>"
-inoremap <expr><C-k>  pumvisible() ? "\<Up>" : "\<C-k>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.go = '\h\w*\.\?'
-
-" Snippets {
-    " Plugin key-mappings.
-    imap <TAB>     <Plug>(neosnippet_expand_or_jump)
-    smap <TAB>     <Plug>(neosnippet_expand_or_jump)
-    xmap <TAB>     <Plug>(neosnippet_expand_target)
-
-    " SuperTab like snippets behavior.
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)"
-    \: pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)"
-    \: "\<TAB>"
-
-    " For snippet_complete marker.
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
-    endif
-
-    " Use honza's snippets.
-    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
-    " Enable neosnippet snipmate compatibility mode
-    let g:neosnippet#enable_snipmate_compatibility = 1
-
-    " Enable neosnippets when using go
-    let g:go_snippet_engine = "neosnippet"
-
-    " Disable the neosnippet preview candidate window
-    " When enabled, there can be too much visual noise
-    " especially when splits are used.
-    " set completeopt-=preview
-
-" }
-
 " Wildfire {
     let g:wildfire_objects = {
         \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
@@ -494,7 +353,16 @@ let g:neocomplete#sources#omni#input_patterns.go = '\h\w*\.\?'
         \ }
 " }
 
-" PIV {
-    let g:DisableAutoPHPFolding = 0
-    let g:PIVAutoClose = 1
-"}
+" " PIV {
+"     let g:DisableAutoPHPFolding = 0
+"     let g:PIVAutoClose = 1
+" "}
+
+" <leader>v brings up .vimrc
+" <leader>V reloads it and makes all changes active (file has to be saved first)
+noremap <leader>v :e! $MYVIMRC<CR>
+noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" This command will allow us to save a file we don't have permission to save
+" *after* we have already opened it. Super useful.
+cnoremap w!! w !sudo tee % >/dev/null

@@ -8,13 +8,16 @@ Bundle "christoomey/vim-tmux-navigator"
 " like sublime multiple cursors
 Bundle "terryma/vim-multiple-cursors"
 
+" A Vim plugin which shows a git diff in the gutter (sign column) and stages/reverts hunks
+Bundle "airblade/vim-gitgutter"
+
 " Vim-airline
 if has("unix")
     let s:uname = system("uname")
     if s:uname == "Darwin\n"
         " Do Mac stuff here
         Bundle "bling/vim-airline"
-        Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+        " Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
         Bundle "edkolev/tmuxline.vim"
     endif
 endif
@@ -31,9 +34,6 @@ Bundle "itspriddle/vim-stripper"
 " highlight code and send to pastie service
 Bundle "tpope/vim-pastie"
 
-" Proper syntax highlighting and commenting capabilities
-Bundle "tmux-plugins/vim-tmux"
-
 " easily change what something is surrounded by
 Bundle "tpope/vim-surround"
 
@@ -41,7 +41,7 @@ Bundle "tpope/vim-surround"
 Bundle "tpope/vim-repeat"
 
 " some vim runtime files that are more up to date than those distributed with vim itself
-Bundle "tpope/vim-git"
+" Bundle "tpope/vim-git"
 
 " auto adds end to method definitions, blocks, etc
 Bundle "tpope/vim-endwise"
@@ -71,12 +71,14 @@ Bundle "jistr/vim-nerdtree-tabs"
 " comment multiple lines
 Bundle "scrooloose/nerdcommenter"
 
-Bundle "Shougo/neocomplete.vim"
-Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/neosnippet-snippets'
+Bundle "Valloric/YouCompleteMe"
 
 Bundle "mileszs/ack.vim"
 Bundle "tpope/vim-fugitive"
+
+" Proper syntax highlighting and commenting capabilities
+Bundle "tmux-plugins/vim-tmux"
+
 Bundle "hail2u/vim-css3-syntax"
 "Bundle "evidens/vim-twig"
 Bundle 'beyondwords/vim-twig'
@@ -86,10 +88,10 @@ Bundle "elzr/vim-json"
 Bundle "pangloss/vim-javascript"
 
 " Gist things
-Bundle 'mattn/gist-vim'
+" Bundle 'mattn/gist-vim'
 
 " dependency of gist-vim
-Bundle 'mattn/webapi-vim'
+" Bundle 'mattn/webapi-vim'
 
 " <leader><leader>w jump to highlighted word
 Bundle "Lokaltog/vim-easymotion"
@@ -104,11 +106,33 @@ Bundle 'nathanaelkane/vim-indent-guides'
 
 
 "------ PHP Related bundle ------
-"Bundle "StanAngeloff/php.vim"
 "Bundle "tobyS/vmustache"
 "Bundle "tobyS/pdv"
-Bundle 'spf13/PIV'
-Bundle 'arnaud-lb/vim-php-namespace'
+" Bundle 'spf13/PIV'
+" Bundle 'arnaud-lb/vim-php-namespace'
+
+"----- PHP AutoComplete Begin -----
+Bundle "Shougo/vimproc"
+Bundle "Shougo/unite.vim"
+Bundle "m2mdas/phpcomplete-extended"
+
+autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"----- PHP AutoComplete end -----
+
+"----- PHP Highlight extended begin -----
+Bundle "StanAngeloff/php.vim"
+
+lef g:php_var_selector_is_identifier = 1
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
+"----- PHP Highlight extended end -----
 
 " " tab completion like textmate for snippets
 "Bundle "SirVer/ultisnips"
@@ -124,28 +148,10 @@ Bundle 'arnaud-lb/vim-php-namespace'
 " " vim-snipmate dependency
 Bundle 'honza/vim-snippets'
 
-if has("unix")
-    let s:uname = system("uname")
-    if s:uname == "Darwin\n"
-        " Do Mac stuff here
-        Bundle 'rizzatti/funcoo.vim'
-        Bundle 'rizzatti/dash.vim'
-    endif
-endif
+" Bundle "marijnh/tern_for_vim"
 
-lef g:php_var_selector_is_identifier = 1
-function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endfunction
-
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
-
-let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
-nnoremap <buffer> <Leader>p :call pdv#DocumentWithSnip()<CR>
+" let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+" nnoremap <buffer> <Leader>p :call pdv#DocumentWithSnip()<CR>
 
 "------ Inline color ------
 " Bundle "lilydjwg/colorizer"
@@ -161,17 +167,17 @@ Bundle 'mbbill/undotree'
 
 
 Bundle 'groenewege/vim-less'
-Bundle 'mhinz/vim-signify'
+" Bundle 'mhinz/vim-signify'
 Bundle 'osyo-manga/vim-over'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kana/vim-textobj-indent'
-Bundle 'reedes/vim-textobj-sentence'
-Bundle 'reedes/vim-textobj-quote'
+" Bundle 'kana/vim-textobj-user'
+" Bundle 'kana/vim-textobj-indent'
+" Bundle 'reedes/vim-textobj-sentence'
+" Bundle 'reedes/vim-textobj-quote'
 Bundle 'gcmt/wildfire.vim'
-Bundle 'tpope/vim-commentary'
-Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'saltstack/salt-vim'
-Bundle 'kchmck/vim-coffee-script'
+" Bundle 'tpope/vim-commentary'
+" Bundle 'amirh/HTML-AutoCloseTag'
+" Bundle 'saltstack/salt-vim'
+" Bundle 'kchmck/vim-coffee-script'
 
 
 " Bundle 'reedes/vim-wordy'
