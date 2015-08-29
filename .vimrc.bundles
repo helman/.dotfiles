@@ -2,8 +2,11 @@
 Bundle "kien/ctrlp.vim"
 Bundle 'tacahiroy/ctrlp-funky'
 
+" Bundle "mileszs/ack.vim" */
+Bundle "rking/ag.vim"
+
 " navigate with C-h/j/k/l in tmux and vim
-Bundle "christoomey/vim-tmux-navigator"
+" Bundle "christoomey/vim-tmux-navigator"
 
 " like sublime multiple cursors
 Bundle "terryma/vim-multiple-cursors"
@@ -21,6 +24,11 @@ if has("unix")
         Bundle "edkolev/tmuxline.vim"
     endif
 endif
+
+"--- AutoComplete
+Bundle "Valloric/YouCompleteMe"
+Bundle "sirver/ultisnips"
+Bundle 'honza/vim-snippets'
 
 " cycle through yanks/deletes in a visual window or after pasting
 " Bundle "vim-scripts/YankRing.vim"
@@ -44,14 +52,14 @@ Bundle "tpope/vim-repeat"
 " Bundle "tpope/vim-git"
 
 " auto adds end to method definitions, blocks, etc
-Bundle "tpope/vim-endwise"
+" Bundle "tpope/vim-endwise"
 
 " auto close delimeter
 Bundle "jiangmiao/auto-pairs"
 " Bundle "Raimondi/delimitMate"
 
 " allows for moving blocks of text up and down in place like you could in textmate
-Bundle "tpope/vim-unimpaired"
+" Bundle "tpope/vim-unimpaired"
 
 " Smart selection between pairs
 Bundle "gorkunov/smartpairs.vim"
@@ -71,20 +79,16 @@ Bundle "jistr/vim-nerdtree-tabs"
 " comment multiple lines
 Bundle "scrooloose/nerdcommenter"
 
-Bundle "Valloric/YouCompleteMe"
-
-Bundle "mileszs/ack.vim"
 Bundle "tpope/vim-fugitive"
 
 " Proper syntax highlighting and commenting capabilities
-Bundle "tmux-plugins/vim-tmux"
+" Bundle "tmux-plugins/vim-tmux"
 
 Bundle "hail2u/vim-css3-syntax"
 "Bundle "evidens/vim-twig"
 Bundle 'beyondwords/vim-twig'
 Bundle "tpope/vim-haml"
-Bundle "tpope/vim-markdown"
-Bundle "elzr/vim-json"
+" Bundle "tpope/vim-markdown"
 Bundle "pangloss/vim-javascript"
 
 " Gist things
@@ -134,19 +138,8 @@ augroup phpSyntaxOverride
 augroup END
 "----- PHP Highlight extended end -----
 
-" " tab completion like textmate for snippets
-"Bundle "SirVer/ultisnips"
-" Bundle 'garbas/vim-snipmate'
-" Bundle "sirver/ultisnips"
-
-" " vim-snipmate dependency
-" Bundle 'tomtom/tlib_vim'
-
-" " vim-snipmate dependency
-" Bundle 'MarcWeber/vim-addon-mw-utils'
-
-" " vim-snipmate dependency
-Bundle 'honza/vim-snippets'
+"----- Go Language -----
+Bundle "fatih/vim-go"
 
 " Bundle "marijnh/tern_for_vim"
 
@@ -155,12 +148,12 @@ Bundle 'honza/vim-snippets'
 
 "------ Inline color ------
 " Bundle "lilydjwg/colorizer"
-Bundle 'gorodinskiy/vim-coloresque'
+" Bundle 'gorodinskiy/vim-coloresque'
 
 "------ Theme ------
 "Bundle "altercation/vim-colors-solarized"
-Bundle "hukl/Smyck-Color-Scheme"
-Bundle "crusoexia/vim-monokai"
+" Bundle "hukl/Smyck-Color-Scheme"
+" Bundle "crusoexia/vim-monokai"
 Bundle "tomasr/molokai"
 
 Bundle 'mbbill/undotree'

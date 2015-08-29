@@ -1,12 +1,25 @@
 set clipboard=unnamed
 
-let mapleader=","
-
 " Turn off vi compatibility. If I wanted vi, I would use vi.
 set nocompatible
 
 " Reset all autocmds
 autocmd!
+
+"------ Vundle ------
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+"------ Bundle ------
+" Load bundle from .vimrc.bundle
+if filereadable($HOME . '/.vimrc.bundles')
+    source ~/.vimrc.bundles
+endif
+
+call vundle#end()
+
+let mapleader=","
 
 filetype on
 if &diff
@@ -65,18 +78,6 @@ if !has('nvim')
     set ttymouse=xterm2
 endif
 
-"------ Vundle ------
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-"------ Bundle ------
-" Load bundle from .vimrc.bundle
-if filereadable($HOME . '/.vimrc.bundles')
-    source ~/.vimrc.bundles
-endif
-
-call vundle#end()
 
 "----- Theme ------
 syntax enable
@@ -90,15 +91,15 @@ colorscheme monokai
 " Override monokai color
 " Change bg to
 
-if has('gui_running')
-    highlight Normal ctermbg=#000000
-    highlight StatusLine ctermbg=#000000
-    highlight PmenuSbar ctermbg=#000000
-else
-    highlight Normal ctermbg=000
-    highlight StatusLine ctermbg=000
-    highlight PmenuSbar ctermbg=000
-endif
+" if has('gui_running')
+"     highlight Normal ctermbg=#000000
+"     highlight StatusLine ctermbg=#000000
+"     highlight PmenuSbar ctermbg=#000000
+" else
+"     highlight Normal ctermbg=000
+"     highlight StatusLine ctermbg=000
+"     highlight PmenuSbar ctermbg=000
+" endif
 
 "------ Highlight cursor position ------
 hi cursorcolumn   ctermbg=235
@@ -108,8 +109,17 @@ hi CursorLine     cterm=none ctermbg=235
 " hi TabLineSel ctermfg=white ctermbg=52
 " hi TabLine ctermfg=white ctermbg=darkblue
 " hi TabLineFill ctermfg=darkblue
-set cursorline
-set cursorcolumn
+
+if has('gui_running')
+    set cursorline
+    set cursorcolumn
+else
+    set nocursorcolumn
+    set nocursorline
+endif
+
+set norelativenumber
+" syntax sync minlines=256
 
 "------ Highlight search keywords ------
 set hlsearch
@@ -144,6 +154,9 @@ map <silent> <F4> :TlistToggle<CR>
 " map <F5> <Esc>:EnableFastPHPFolds<Cr>
 " map <F6> <Esc>:EnablePHPFolds<Cr>
 " map <F7> <Esc>:DisablePHPFolds<Cr>
+
+"----- Composer for phpComplete
+let g:phpcomplete_index_composer_command='composer'
 
 "------  Window Navigation  ------
 " ,hljk = Move between windows
@@ -229,6 +242,7 @@ let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 
 " CtrlP
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_working_path_mode = 'ra'
 
@@ -366,3 +380,10 @@ noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo '
 " This command will allow us to save a file we don't have permission to save
 " *after* we have already opened it. Super useful.
 cnoremap w!! w !sudo tee % >/dev/null
+
+"----- UltiSnips
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsExpandTrigger="<c-x>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
