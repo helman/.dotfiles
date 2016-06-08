@@ -1,5 +1,5 @@
 " Bundles list
-Bundle "kien/ctrlp.vim"
+Bundle "ctrlpvim/ctrlp.vim"
 Bundle 'tacahiroy/ctrlp-funky'
 
 " Bundle "mileszs/ack.vim" */
@@ -72,6 +72,7 @@ Bundle "majutsushi/tagbar"
 
 Bundle "scrooloose/nerdtree"
 Bundle "Xuyuanp/nerdtree-git-plugin"
+Bundle "ryanoasis/vim-devicons"
 
 " makes NERDTree awesome if you use tabs
 Bundle "jistr/vim-nerdtree-tabs"
@@ -84,6 +85,7 @@ Bundle "tpope/vim-fugitive"
 " Proper syntax highlighting and commenting capabilities
 " Bundle "tmux-plugins/vim-tmux"
 
+Bundle "mxw/vim-jsx"
 Bundle "hail2u/vim-css3-syntax"
 "Bundle "evidens/vim-twig"
 Bundle 'beyondwords/vim-twig'
@@ -116,7 +118,7 @@ Bundle 'nathanaelkane/vim-indent-guides'
 " Bundle 'arnaud-lb/vim-php-namespace'
 
 "----- PHP AutoComplete Begin -----
-Bundle "Shougo/vimproc"
+Bundle "Shougo/vimproc.vim"
 Bundle "Shougo/unite.vim"
 Bundle "m2mdas/phpcomplete-extended"
 
@@ -155,6 +157,7 @@ Bundle "fatih/vim-go"
 " Bundle "hukl/Smyck-Color-Scheme"
 " Bundle "crusoexia/vim-monokai"
 Bundle "tomasr/molokai"
+Bundle "chriskempson/base16-vim"
 
 Bundle 'mbbill/undotree'
 

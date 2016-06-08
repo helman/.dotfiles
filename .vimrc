@@ -38,10 +38,12 @@ set t_Co=256                    " Terminal color
 
 " support italic font
 set t_ZH=[3m
-set t_ZH=[23m
+set t_ZR=[23m
 
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
+
+set autoread                    " Auto reload changed file
 
 set number                      " Show numbers
 set showmode                    " shows the current mode
@@ -85,7 +87,8 @@ set background=dark
 let g:monokai_thick_border = 1
 let g:monokai_zentree = 1
 let g:monokai_italic = 1
-colorscheme monokai
+colorscheme Tomorrow-Night
+" colorscheme monokai
 " let g:molokai_original = 1
 " colorscheme molokai
 " Override monokai color
@@ -109,6 +112,7 @@ hi CursorLine     cterm=none ctermbg=235
 " hi TabLineSel ctermfg=white ctermbg=52
 " hi TabLine ctermfg=white ctermbg=darkblue
 " hi TabLineFill ctermfg=darkblue
+" highlight Comment cterm=italic
 
 if has('gui_running')
     set cursorline
@@ -185,14 +189,22 @@ let NERDTreeDirArrows=1
 let NERDTreeWinSize = 51
 " let NERDTreeShowLineNumbers=1
 let g:nerdtree_tabs_focus_on_files=1
-"let g:nerdtree_tabs_open_on_console_startup=1
+let NERDTreeShowBookmarks=1
+" let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+let NERDTreeChDirMode=0
+let NERDTreeQuitOnOpen=1
+let NERDTreeMouseMode=2
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+let g:nerdtree_tabs_open_on_console_startup=0
+let g:nerdtree_tabs_open_on_gui_startup=0
 
 " Undotree
 nnoremap <F5> :UndotreeToggle<cr>
-if has("persistent_undo")
-    set undodir='~/.undodir/'
-    set undofile
-endif
+" if has("persistent_undo")
+    " set undodir='~/.undodir/'
+    " set undofile
+" endif
 
 "resizes nerdtree if you're cursor is not actually in nerdtree (needs to be to the right of it)
 map <leader>5 99+ 51_ j k
@@ -245,6 +257,7 @@ let g:indent_guides_guide_size=1
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_working_path_mode = 'ra'
+let g:webdevicons_enable_ctrlp = 1
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 " set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
@@ -381,9 +394,24 @@ noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo '
 " *after* we have already opened it. Super useful.
 cnoremap w!! w !sudo tee % >/dev/null
 
-"----- UltiSnips
-let g:UltiSnipsUsePythonVersion = 2
-let g:UltiSnipsExpandTrigger="<c-x>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+if !&diff
+    "----- UltiSnips
+    let g:UltiSnipsUsePythonVersion = 2
+    let g:UltiSnipsExpandTrigger="<c-x>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
+    "----- Syntastic
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+    let g:syntastic_aggregate_errors = 1
+    let g:syntastic_php_phpcs_args='--tab-width=&tabstop'
+    let g:syntastic_php_phpmd_post_args='~/.dotfiles/phpmd-rules.xml'
+endif
